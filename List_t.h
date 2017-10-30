@@ -13,9 +13,17 @@ struct List_t
 	void pop_back()
 	{
 		Node_t* node = first;
+		Node_t* prev_node = first;
+		int i = 0;
 		while(node->next){
+            i++;
             node = node-> next;
 		}
+		while(i-1){
+            i--;
+            prev_node = prev_node -> next;
+		}
+		prev_node->next = 0;
 		delete node;
 		//TODO: Need to implement: delete last element is the list
 	};
@@ -25,17 +33,15 @@ struct List_t
 		Node_t* prev_node = first;
 		Node_t* next_node = first;
 
-		for(int i = 0; i < pos; i++){
+		for(int i = 0; i < pos - 1; i++){
             prev_node = prev_node->next;
             next_node = next_node->next;
 		}
-		Node_t* new_node = new Node_t(val);
-
-		prev_node->next = new_node;
+		prev_node->next = new Node_t(val);
 
 		next_node = next_node->next;
 
-		new_node->next = next_node;
+		prev_node->next->next = next_node;
 
 		//TODO: Need to implement:  insert new element before the element at the specified position
 	}
@@ -43,7 +49,7 @@ struct List_t
 	int size()
 	{
 	    int size_list = 0;
-	    Node_t* node;
+	    Node_t* node = first;
 	    while(node){
             size_list++;
             node = node->next;
@@ -66,24 +72,25 @@ struct List_t
 
             delete del_node;
 
-            return;
+
 
 		}
 
-		for(int i = 0; i < pos - 1; i++){
+		else {
+                for(int i = 0; i < pos - 1; i++){
+                    del_node = del_node-> next;
+                    prev_node = prev_node -> next;
+                    next_node = next_node -> next;
+		}
+
             del_node = del_node-> next;
-            prev_node = prev_node -> next;
             next_node = next_node -> next;
+            next_node = next_node -> next;
+
+            prev_node->next = next_node;
+
+            delete del_node;
 		}
-
-		del_node = del_node-> next;
-		next_node = next_node -> next;
-		next_node = next_node -> next;
-
-		prev_node->next = next_node;
-
-		delete del_node;
-
 		//TODO: Need to implement: delete the element at the specified position
 	}
 
