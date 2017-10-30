@@ -43,12 +43,6 @@ struct List_t
             first->next = next_node;
         }
         else{
-            if(pos == 1){
-                next_node = next_node->next;
-                prev_node->next = new Node_t(val);
-                prev_node->next->next = next_node;
-            }
-            else{
 
                 for(int i = 0; i < pos - 1; i++){
                     prev_node = prev_node->next;
@@ -62,7 +56,6 @@ struct List_t
                 prev_node->next->next = next_node;
 
             }
-        }
 		//TODO: Need to implement:  insert new element before the element at the specified position
 	}
 
