@@ -1,4 +1,4 @@
-#include "Node_t.h"
+##include "Node_t.h"
 
 struct List_t
 {
@@ -15,16 +15,21 @@ struct List_t
 		Node_t* node = first;
 		Node_t* prev_node = first;
 		int i = 0;
-		while(node->next){
-            i++;
-            node = node-> next;
+		if(!(node->next))
+            delete node;
+
+		else{
+                while(node->next){
+                    i++;
+                    node = node-> next;
+                }
+                while(i-1){
+                    i--;
+                    prev_node = prev_node -> next;
+                }
+                prev_node->next = 0;
+                delete node;
 		}
-		while(i-1){
-            i--;
-            prev_node = prev_node -> next;
-		}
-		prev_node->next = 0;
-		delete node;
 		//TODO: Need to implement: delete last element is the list
 	};
 
@@ -63,7 +68,12 @@ struct List_t
 		Node_t* del_node = first;
 		Node_t* prev_node = first;
 		Node_t* next_node = first;
-		if(pos == 1){
+		if(pos == 0){
+                first = next_node->next;
+                delete del_node;
+		}
+		else{
+            if(pos == 1){
             del_node = del_node->next;
 
             next_node = next_node -> next;
@@ -91,12 +101,18 @@ struct List_t
 
             delete del_node;
 		}
-		//TODO: Need to implement: delete the element at the specified position
+    }   //TODO: Need to implement: delete the element at the specified position
 	}
 
 	int clear()
 	{
-		return 0;//TODO: Need to implement: delete all elements from the list
+        int len = size();
+        Node_t* node = first;
+        for(int i = 0; i < len ; i++){
+            pop_back();
+        }
+
+        //TODO: Need to implement: delete all elements from the list
 	}
 
 	int sort()
@@ -107,7 +123,17 @@ struct List_t
 
 	int reverse()
 	{
-		return 0;//TODO: Need to implement: Reverse links between elements in the list
+		int len = size();
+		Node_t* node = first;
+		Node_t* last;
+
+		for(int i = len; i > 0; i--){
+            insert(i - 1, node->value);
+            node = node -> next;
+            erase(0);
+		}
+
+		//TODO: Need to implement: Reverse links between elements in the list
 	}
 };
 
