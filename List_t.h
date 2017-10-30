@@ -1,4 +1,4 @@
-##include "Node_t.h"
+#include "Node_t.h"
 
 struct List_t
 {
@@ -38,16 +38,31 @@ struct List_t
 		Node_t* prev_node = first;
 		Node_t* next_node = first;
 
-		for(int i = 0; i < pos - 1; i++){
-            prev_node = prev_node->next;
-            next_node = next_node->next;
-		}
-		prev_node->next = new Node_t(val);
+        if(pos == 0){
+            first = new Node_t(val);
+            first->next = next_node;
+        }
+        else{
+            if(pos == 1){
+                next_node = next_node->next;
+                prev_node->next = new Node_t(val);
+                prev_node->next->next = next_node;
+            }
+            else{
 
-		next_node = next_node->next;
+                for(int i = 0; i < pos - 1; i++){
+                    prev_node = prev_node->next;
+                    next_node = next_node->next;
+                }
 
-		prev_node->next->next = next_node;
+                next_node = next_node->next;
 
+                prev_node->next = new Node_t(val);
+
+                prev_node->next->next = next_node;
+
+            }
+        }
 		//TODO: Need to implement:  insert new element before the element at the specified position
 	}
 
@@ -128,7 +143,7 @@ struct List_t
 		Node_t* last;
 
 		for(int i = len; i > 0; i--){
-            insert(i - 1, node->value);
+            insert(i, node->value);
             node = node -> next;
             erase(0);
 		}
