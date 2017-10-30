@@ -10,11 +10,15 @@ int main()
 	list.push_back(12);
 	list.push_back(13);
 
-   list.size();
-   list.pop_back();
-   list.insert(2,0);
+	list.pop_back();
+
+    	//list.insert(2,0);
+
+    	int len = list.size();
+    	//list.pop_back();
 
 	list.print();
+	std::cout << "size: " << len << "\n";
 
 	return 0;
 }
