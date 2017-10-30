@@ -125,7 +125,30 @@ struct List_t
 
 	int sort()
 	{
-		return 0;//TODO: Need to implement: Sort element in the list by ascending order
+	    Node_t* prev_node = first;
+	    Node_t* next_node = first;
+	    int len = size();
+
+	    for(int i = 1; i < len ; i++)
+            for(int j = 0; j < len - i; j++){
+
+                int time = 0;
+                while(time != j){
+                    time++;
+                    next_node = next_node->next;
+                    prev_node = prev_node->next;
+                }
+                next_node = next_node->next;
+
+                if(next_node->value < prev_node->value){
+                    insert(j, next_node->value);
+                    erase(j+2);
+                }
+
+                next_node = first;
+                prev_node = first;
+        }
+		//TODO: Need to implement: Sort element in the list by ascending order
 		//NOTE: It is really easy to do, if you have implemented push_back(), insert(), size(), and erase()
 	}
 
